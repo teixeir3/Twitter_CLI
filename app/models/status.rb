@@ -17,6 +17,13 @@ class Status < ActiveRecord::Base
   validates :twitter_status_id, :uniqueness => true, :presence => true
   validates :twitter_user_id, :presence => true
 
+  belongs_to(
+    :user,
+    :class_name => 'User',
+    :foreign_key => :twitter_user_id,
+    :primary_key => :twitter_user_id
+  )
+
   def self.fetch_by_user_id!(id)
     # uses TwitterSession class to fetch the timeline. Call gets
     # parse_json
